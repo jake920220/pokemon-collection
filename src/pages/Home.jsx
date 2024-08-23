@@ -1,12 +1,14 @@
 import styled, { keyframes } from "styled-components";
+import { useNavigate } from "react-router-dom";
 import pika from "../assets/pika.png";
 import pokeball from "../assets/pokeball.png";
 
 function Home() {
+  const navigate = useNavigate();
   return (
     <HomeContainer>
       <img id="pikachu" src={pika} alt="" />
-      <button>
+      <button onClick={() => navigate("/dex")}>
         <span>포켓몬 도감 시작하기</span>
         <img src={pokeball} alt="" />
       </button>
