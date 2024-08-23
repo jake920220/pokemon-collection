@@ -15,7 +15,7 @@ html {
 }
 
 body {
-	background-color: #eee;
+	/* background-color: #eee; */
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
@@ -71,6 +71,14 @@ button {
 	cursor: pointer;
 	border: 0;
 	outline: 0;
+}
+
+img {
+	-webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 }
 `;
 
