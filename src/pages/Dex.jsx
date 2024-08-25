@@ -12,23 +12,29 @@ function Dex() {
   function addPokemon(id) {
     const pokemon = MOCK_DATA.find((pokemon) => pokemon.id === id);
     setSelectedPokemon((prevSelected) => {
-      const newSelected = [...prevSelected];
-      if (!newSelected.find((p) => p.id === pokemon.id)) {
-        const emptyIndex = newSelected.findIndex((item) => !item.id);
+      const copySelected = [...prevSelected];
+      if (!copySelected.find((p) => p.id === pokemon.id)) {
+        const emptyIndex = copySelected.findIndex((item) => !item.id);
         if (emptyIndex !== -1) {
-          newSelected[emptyIndex] = pokemon;
+          copySelected[emptyIndex] = pokemon;
         } else {
           alert("더 이상은 추가할 수 없습니다.");
         }
       } else {
-        alert("이미 추가된 포켓몬입니다.")
+        alert("이미 추가된 포켓몬입니다.");
       }
-      return newSelected;
+      return copySelected;
     });
   }
 
   function removePokemon(id) {
-    console.log("remove", id);
+    setSelectedPokemon((prevSelected) => {
+      const copySelected = [...prevSelected];
+      const index = copySelected.findIndex((p) => p.id === id);
+      copySelected.splice(index, 1);
+      copySelected.push({ id: null });
+      return copySelected;
+    });
   }
 
   return (
