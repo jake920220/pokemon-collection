@@ -1,29 +1,38 @@
 import styled from "styled-components";
 import { POKEMON_TYPES } from "../constants";
 import Monsterball from "../assets/monball.png";
+import { PokemonTypeBadge } from "../styles/PokemonTypeBadge";
+import PropTypes from "prop-types";
 
-// eslint-disable-next-line react/prop-types
-function PokemonCard({ imgUrl, koreanName, types, no, onClick, buttonText }) {
+function PokemonCard({
+  imgUrl,
+  koreanName,
+  types,
+  no,
+  onCardClick,
+  onButtonClick,
+  buttonText,
+}) {
   return (
     <>
       {no ? (
-        <CardWrap>
+        <CardWrap onClick={() => onCardClick(no)}>
           <div className="content">
             <img src={imgUrl} alt={koreanName} />
             <h3>{koreanName}</h3>
             <span className="pokemon-no">No. {String(no).padStart(3, 0)}</span>
             <div className="type-wrap">
-              {
-                // eslint-disable-next-line react/prop-types
-                types.map((type) => (
-                  <span key={type} className={`${POKEMON_TYPES[type]}`}>
-                    {type}
-                  </span>
-                ))
-              }
+              {types.map((type) => (
+                <PokemonTypeBadge
+                  key={type}
+                  className={`${POKEMON_TYPES[type]}`}
+                >
+                  {type}
+                </PokemonTypeBadge>
+              ))}
             </div>
           </div>
-          <button onClick={() => onClick(no)}>{buttonText}</button>
+          <button onClick={(e) => onButtonClick(e, no)}>{buttonText}</button>
         </CardWrap>
       ) : (
         <EmptyWrap>
@@ -87,73 +96,6 @@ const CardWrap = styled.div`
     gap: 4px;
     align-items: center;
     justify-content: center;
-
-    span {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 4px;
-      color: #ffffff;
-      font-style: normal;
-      width: 45px;
-      height: 22px;
-      font-size: 14px;
-
-      &.normal {
-        background-color: #949495;
-      }
-      &.fight {
-        background-color: #e09c40;
-      }
-      &.fly {
-        background-color: #a2c3e7;
-      }
-      &.poison {
-        background-color: #735198;
-      }
-      &.earth {
-        background-color: #9c7743;
-      }
-      &.rock {
-        background-color: #bfb889;
-      }
-      &.insect {
-        background-color: #9fa244;
-      }
-      &.ghost {
-        background-color: #684870;
-      }
-      &.iron {
-        background-color: #69a9c7;
-      }
-      &.fire {
-        background-color: #e56c3e;
-      }
-      &.water {
-        background-color: #5185c5;
-      }
-      &.grass {
-        background-color: #66a945;
-      }
-      &.electric {
-        background-color: #f6d851;
-      }
-      &.esper {
-        background-color: #dd6b7b;
-      }
-      &.ice {
-        background-color: #6dc8eb;
-      }
-      &.dragon {
-        background-color: #535ca8;
-      }
-      &.evil {
-        background-color: #4c4948;
-      }
-      &.fariy {
-        background-color: #dab4d4;
-      }
-    }
   }
 
   button {
@@ -184,5 +126,15 @@ const CardWrap = styled.div`
     }
   }
 `;
+
+PokemonCard.propTypes = {
+  imgUrl: PropTypes.string,
+  koreanName: PropTypes.string,
+  types: PropTypes.array,
+  no: PropTypes.number,
+  onCardClick: PropTypes.func,
+  onButtonClick: PropTypes.func,
+  buttonText: PropTypes.string,
+};
 
 export default PokemonCard;

@@ -15,7 +15,7 @@ function Dashboard({ selectedPokemon, removePokemon }) {
             koreanName={pokemon.korean_name}
             types={pokemon.types}
             no={pokemon.id}
-            onClick={removePokemon}
+            onButtonClick={removePokemon}
             buttonText="제거하기"
           />
         ))}

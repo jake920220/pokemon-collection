@@ -1,15 +1,18 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
 import { MOCK_DATA } from "../constants";
 
 function Dex() {
+  const navigate = useNavigate();
   const [selectedPokemon, setSelectedPokemon] = useState(
     Array(6).fill({ id: null })
   );
 
-  function addPokemon(id) {
+  function addPokemon(e, id) {
+    e.stopPropagation();
     const pokemon = MOCK_DATA.find((pokemon) => pokemon.id === id);
     setSelectedPokemon((prevSelected) => {
       const copySelected = [...prevSelected];
@@ -27,7 +30,7 @@ function Dex() {
     });
   }
 
-  function removePokemon(id) {
+  function removePokemon(e, id) {
     setSelectedPokemon((prevSelected) => {
       const copySelected = [...prevSelected];
       const index = copySelected.findIndex((p) => p.id === id);
@@ -37,13 +40,21 @@ function Dex() {
     });
   }
 
+  function moveDetailPage(id) {
+    navigate(`/detail?id=${id}`);
+  }
+
   return (
     <DexContainer>
       <StyledDashboard
         selectedPokemon={selectedPokemon}
         removePokemon={removePokemon}
       />
-      <PokemonList selectedPokemon={selectedPokemon} addPokemon={addPokemon} />
+      <PokemonList
+        selectedPokemon={selectedPokemon}
+        addPokemon={addPokemon}
+        moveDetailPage={moveDetailPage}
+      />
     </DexContainer>
   );
 }
