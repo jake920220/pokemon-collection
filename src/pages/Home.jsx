@@ -24,7 +24,6 @@ const spin = keyframes`
 const HomeContainer = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: rgb(236, 193, 255);
   padding: 0 20px;
   display: flex;
   align-items: center;

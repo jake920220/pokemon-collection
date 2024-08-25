@@ -16,6 +16,7 @@ html {
 
 body {
 	/* background-color: #eee; */
+	background-color: rgb(236, 193, 255);
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/ 
