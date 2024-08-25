@@ -50,10 +50,6 @@ const HomeContainer = styled.div`
     transition: all 0.25s ease-in-out;
 
     img {
-      /* position: absolute;
-      right: 0;
-      top: 50%;
-      transform: translateY(-50%); */
       margin-left: -8px;
       width: 60px;
     }

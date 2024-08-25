@@ -43,7 +43,7 @@ function Dex() {
         selectedPokemon={selectedPokemon}
         removePokemon={removePokemon}
       />
-      <PokemonList addPokemon={addPokemon} />
+      <PokemonList selectedPokemon={selectedPokemon} addPokemon={addPokemon} />
     </DexContainer>
   );
 }

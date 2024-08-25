@@ -47,7 +47,6 @@ const EmptyWrap = styled.div`
   border-radius: 10px;
   img {
     width: 50px;
-    /* height: 50px; */
   }
 `;
 
