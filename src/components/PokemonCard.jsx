@@ -1,34 +1,55 @@
 import styled from "styled-components";
 import { POKEMON_TYPES } from "../constants";
+import Monsterball from "../assets/monball.png";
 
 // eslint-disable-next-line react/prop-types
-function PokemonCard({ imgUrl, koreanName, types, no }) {
+function PokemonCard({ imgUrl, koreanName, types, no, onClick, buttonText }) {
   return (
-    <CardWrap>
-      <div className="content">
-        <img src={imgUrl} alt={koreanName} />
-        <h3>{koreanName}</h3>
-        <span className="pokemon-no">No. {String(no).padStart(3, 0)}</span>
-        <div className="type-wrap">
-          {
-            // eslint-disable-next-line react/prop-types
-            types.map((type) => (
-              <span
-                className="type-span"
-                key={type}
-                // eslint-disable-next-line react/jsx-no-duplicate-props
-                className={`${POKEMON_TYPES[type]}`}
-              >
-                {type}
-              </span>
-            ))
-          }
-        </div>
-      </div>
-      <button onClick={() => {}}>추가하기</button>
-    </CardWrap>
+    <>
+      {no ? (
+        <CardWrap>
+          <div className="content">
+            <img src={imgUrl} alt={koreanName} />
+            <h3>{koreanName}</h3>
+            <span className="pokemon-no">No. {String(no).padStart(3, 0)}</span>
+            <div className="type-wrap">
+              {
+                // eslint-disable-next-line react/prop-types
+                types.map((type) => (
+                  <span key={type} className={`${POKEMON_TYPES[type]}`}>
+                    {type}
+                  </span>
+                ))
+              }
+            </div>
+          </div>
+          <button onClick={() => onClick(no)}>{buttonText}</button>
+        </CardWrap>
+      ) : (
+        <EmptyWrap>
+          <img src={Monsterball} alt="monster ball image" />
+        </EmptyWrap>
+      )}
+    </>
   );
 }
+
+const EmptyWrap = styled.div`
+  flex: 1 1 180px;
+  min-width: 150px;
+  max-width: 280px;
+  height: 180px;
+  background-color: rgb(255, 255, 255);
+  border: 2px dashed rgb(204, 204, 204);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  img {
+    width: 50px;
+    /* height: 50px; */
+  }
+`;
 
 const CardWrap = styled.div`
   height: 260px;
