@@ -1,11 +1,10 @@
-import { useContext } from "react";
 import styled from "styled-components";
 import CardWrapper from "../styles/CardWrapper";
 import PokemonCard from "./PokemonCard";
-import {PokemonContext} from "./PokemonProviderComponent";
+import { useSelector } from "react-redux";
 
 function Dashboard() {
-  const { selectedPokemon } = useContext(PokemonContext);
+  const selectedPokemon = useSelector((state) => state.pokemon);
 
   return (
     <CardWrapper>
@@ -14,10 +13,7 @@ function Dashboard() {
         {selectedPokemon.map((pokemon) => (
           <PokemonCard
             key={pokemon.id || new Date().getTime() * Math.random()}
-            imgUrl={pokemon.img_url}
-            koreanName={pokemon.korean_name}
-            types={pokemon.types}
-            no={pokemon.id}
+            pokemon={pokemon}
             isSelected={true}
           />
         ))}

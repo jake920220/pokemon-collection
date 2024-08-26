@@ -1,4 +1,3 @@
-
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import CardWrapper from "../styles/CardWrapper";
@@ -9,14 +8,7 @@ function PokemonList() {
     <CardWrapper>
       <PokemonCardListWrap>
         {MOCK_DATA.map((pokemon) => (
-          <PokemonCard
-            key={pokemon.id}
-            imgUrl={pokemon.img_url}
-            no={pokemon.id}
-            koreanName={pokemon.korean_name}
-            types={pokemon.types}
-            isSelected={false}
-          />
+          <PokemonCard key={pokemon.id} pokemon={pokemon} isSelected={false} />
         ))}
       </PokemonCardListWrap>
     </CardWrapper>
