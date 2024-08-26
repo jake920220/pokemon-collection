@@ -1,22 +1,35 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import { POKEMON_TYPES } from "../constants";
 import Monsterball from "../assets/monball.png";
 import { PokemonTypeBadge } from "../styles/PokemonTypeBadge";
 import PropTypes from "prop-types";
+import {PokemonContext} from "./PokemonProviderComponent";
 
 function PokemonCard({
   imgUrl,
   koreanName,
   types,
   no,
-  onCardClick,
-  onButtonClick,
-  buttonText,
+  isSelected,
 }) {
+
+  const {moveDetailPage, addPokemon, removePokemon} = useContext(PokemonContext);
+
+  const onButtonClick = (e, id) => {
+    e.stopPropagation();
+
+    if(isSelected) {
+      removePokemon(id);
+    } else {
+      addPokemon(id);
+    }
+  }
+
   return (
     <>
       {no ? (
-        <CardWrap onClick={() => onCardClick(no)}>
+        <CardWrap onClick={() => moveDetailPage(no)}>
           <div className="content">
             <img src={imgUrl} alt={koreanName} />
             <h3>{koreanName}</h3>
@@ -32,7 +45,7 @@ function PokemonCard({
               ))}
             </div>
           </div>
-          <button onClick={(e) => onButtonClick(e, no)}>{buttonText}</button>
+          <button onClick={(e) => onButtonClick(e, no)}>{isSelected? "제거하기" : "추가하기"}</button>
         </CardWrap>
       ) : (
         <EmptyWrap>
@@ -135,6 +148,7 @@ PokemonCard.propTypes = {
   onCardClick: PropTypes.func,
   onButtonClick: PropTypes.func,
   buttonText: PropTypes.string,
+  isSelected: PropTypes.bool,
 };
 
 export default PokemonCard;
