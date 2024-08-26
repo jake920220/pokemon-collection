@@ -11,10 +11,7 @@ function PokemonList() {
         {MOCK_DATA.map((pokemon) => (
           <PokemonCard
             key={pokemon.id}
-            imgUrl={pokemon.img_url}
-            no={pokemon.id}
-            koreanName={pokemon.korean_name}
-            types={pokemon.types}
+            pokemon={pokemon}
             isSelected={false}
           />
         ))}

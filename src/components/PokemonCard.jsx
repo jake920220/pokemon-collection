@@ -4,38 +4,34 @@ import { POKEMON_TYPES } from "../constants";
 import Monsterball from "../assets/monball.png";
 import { PokemonTypeBadge } from "../styles/PokemonTypeBadge";
 import PropTypes from "prop-types";
-import {PokemonContext} from "./PokemonProviderComponent";
+import { PokemonContext } from "./PokemonProviderComponent";
 
-function PokemonCard({
-  imgUrl,
-  koreanName,
-  types,
-  no,
-  isSelected,
-}) {
-
-  const {moveDetailPage, addPokemon, removePokemon} = useContext(PokemonContext);
+function PokemonCard({ pokemon, isSelected }) {
+  const { moveDetailPage, addPokemon, removePokemon } =
+    useContext(PokemonContext);
 
   const onButtonClick = (e, id) => {
     e.stopPropagation();
 
-    if(isSelected) {
+    if (isSelected) {
       removePokemon(id);
     } else {
       addPokemon(id);
     }
-  }
+  };
 
   return (
     <>
-      {no ? (
-        <CardWrap onClick={() => moveDetailPage(no)}>
+      {pokemon.id ? (
+        <CardWrap onClick={() => moveDetailPage(pokemon.id)}>
           <div className="content">
-            <img src={imgUrl} alt={koreanName} />
-            <h3>{koreanName}</h3>
-            <span className="pokemon-no">No. {String(no).padStart(3, 0)}</span>
+            <img src={pokemon.img_url} alt={pokemon.korean_name} />
+            <h3>{pokemon.korean_name}</h3>
+            <span className="pokemon-no">
+              No. {String(pokemon.id).padStart(3, 0)}
+            </span>
             <div className="type-wrap">
-              {types.map((type) => (
+              {pokemon.types.map((type) => (
                 <PokemonTypeBadge
                   key={type}
                   className={`${POKEMON_TYPES[type]}`}
@@ -45,7 +41,9 @@ function PokemonCard({
               ))}
             </div>
           </div>
-          <button onClick={(e) => onButtonClick(e, no)}>{isSelected? "제거하기" : "추가하기"}</button>
+          <button onClick={(e) => onButtonClick(e, pokemon.id)}>
+            {isSelected ? "제거하기" : "추가하기"}
+          </button>
         </CardWrap>
       ) : (
         <EmptyWrap>
@@ -141,13 +139,7 @@ const CardWrap = styled.div`
 `;
 
 PokemonCard.propTypes = {
-  imgUrl: PropTypes.string,
-  koreanName: PropTypes.string,
-  types: PropTypes.array,
-  no: PropTypes.number,
-  onCardClick: PropTypes.func,
-  onButtonClick: PropTypes.func,
-  buttonText: PropTypes.string,
+  pokemon: PropTypes.object.isRequired,
   isSelected: PropTypes.bool,
 };
 
