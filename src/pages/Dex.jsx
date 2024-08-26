@@ -1,9 +1,11 @@
-import { useState } from "react";
+import { useState, createContext } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
 import { MOCK_DATA } from "../constants";
+
+export const PokemonContext = createContext();
 
 function Dex() {
   const navigate = useNavigate();
@@ -45,17 +47,14 @@ function Dex() {
   }
 
   return (
-    <DexContainer>
-      <StyledDashboard
-        selectedPokemon={selectedPokemon}
-        removePokemon={removePokemon}
-      />
-      <PokemonList
-        selectedPokemon={selectedPokemon}
-        addPokemon={addPokemon}
-        moveDetailPage={moveDetailPage}
-      />
-    </DexContainer>
+    <PokemonContext.Provider
+      value={{ selectedPokemon, addPokemon, removePokemon, moveDetailPage }}
+    >
+      <DexContainer>
+        <StyledDashboard />
+        <PokemonList />
+      </DexContainer>
+    </PokemonContext.Provider>
   );
 }
 

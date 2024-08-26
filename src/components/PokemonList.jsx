@@ -1,10 +1,14 @@
+
+import { useContext } from "react";
 import styled from "styled-components";
 import PokemonCard from "./PokemonCard";
 import CardWrapper from "../styles/CardWrapper";
 import { MOCK_DATA } from "../constants";
+import { PokemonContext } from "../pages/Dex";
 import PropTypes from "prop-types";
 
-function PokemonList({ addPokemon, moveDetailPage }) {
+function PokemonList() {
+  const { addPokemon, moveDetailPage } = useContext(PokemonContext);
   return (
     <CardWrapper>
       <PokemonCardListWrap>

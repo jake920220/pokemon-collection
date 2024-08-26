@@ -1,9 +1,12 @@
+import { useContext } from "react";
 import styled from "styled-components";
 import CardWrapper from "../styles/CardWrapper";
 import PokemonCard from "./PokemonCard";
 import PropTypes from "prop-types";
+import { PokemonContext } from "../pages/Dex";
 
-function Dashboard({ selectedPokemon, removePokemon }) {
+function Dashboard() {
+  const { selectedPokemon, removePokemon } = useContext(PokemonContext);
   return (
     <CardWrapper>
       <Title>나만의 포켓몬</Title>
