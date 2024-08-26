@@ -2,11 +2,11 @@ import { useContext } from "react";
 import styled from "styled-components";
 import CardWrapper from "../styles/CardWrapper";
 import PokemonCard from "./PokemonCard";
-import PropTypes from "prop-types";
-import { PokemonContext } from "../pages/Dex";
+import {PokemonContext} from "./PokemonProviderComponent";
 
 function Dashboard() {
-  const { selectedPokemon, removePokemon } = useContext(PokemonContext);
+  const { selectedPokemon } = useContext(PokemonContext);
+
   return (
     <CardWrapper>
       <Title>나만의 포켓몬</Title>
@@ -18,8 +18,7 @@ function Dashboard() {
             koreanName={pokemon.korean_name}
             types={pokemon.types}
             no={pokemon.id}
-            onButtonClick={removePokemon}
-            buttonText="제거하기"
+            isSelected={true}
           />
         ))}
       </PokemonCardListWrap>
@@ -39,10 +38,5 @@ const PokemonCardListWrap = styled.div`
   flex-wrap: wrap;
   gap: 16px;
 `;
-
-Dashboard.propTypes = {
-  selectedPokemon: PropTypes.arrayOf(PropTypes.object),
-  removePokemon: PropTypes.func.isRequired,
-};
 
 export default Dashboard;
