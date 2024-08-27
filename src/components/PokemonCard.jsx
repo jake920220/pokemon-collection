@@ -1,10 +1,9 @@
 import { useContext } from "react";
 import styled from "styled-components";
 import { POKEMON_TYPES } from "../constants";
-import Monsterball from "../assets/monball.png";
 import { PokemonTypeBadge } from "../styles/PokemonTypeBadge";
 import PropTypes from "prop-types";
-import { PokemonContext } from "./PokemonProviderComponent";
+import { PokemonContext } from "../contexts/PokemonProvider";
 
 function PokemonCard({ pokemon, isSelected }) {
   const { moveDetailPage, addPokemon, removePokemon } =
@@ -16,59 +15,32 @@ function PokemonCard({ pokemon, isSelected }) {
     if (isSelected) {
       removePokemon(id);
     } else {
-      addPokemon(id);
+      addPokemon(pokemon);
     }
   };
 
   return (
-    <>
-      {pokemon.id ? (
-        <CardWrap onClick={() => moveDetailPage(pokemon.id)}>
-          <div className="content">
-            <img src={pokemon.img_url} alt={pokemon.korean_name} />
-            <h3>{pokemon.korean_name}</h3>
-            <span className="pokemon-no">
-              No. {String(pokemon.id).padStart(3, 0)}
-            </span>
-            <div className="type-wrap">
-              {pokemon.types.map((type) => (
-                <PokemonTypeBadge
-                  key={type}
-                  className={`${POKEMON_TYPES[type]}`}
-                >
-                  {type}
-                </PokemonTypeBadge>
-              ))}
-            </div>
-          </div>
-          <button onClick={(e) => onButtonClick(e, pokemon.id)}>
-            {isSelected ? "제거하기" : "추가하기"}
-          </button>
-        </CardWrap>
-      ) : (
-        <EmptyWrap>
-          <img src={Monsterball} alt="monster ball image" />
-        </EmptyWrap>
-      )}
-    </>
+    <CardWrap onClick={() => moveDetailPage(pokemon.id)}>
+      <div className="content">
+        <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <h3>{pokemon.korean_name}</h3>
+        <span className="pokemon-no">
+          No. {String(pokemon.id).padStart(3, 0)}
+        </span>
+        <div className="type-wrap">
+          {pokemon.types.map((type) => (
+            <PokemonTypeBadge key={type} className={`${POKEMON_TYPES[type]}`}>
+              {type}
+            </PokemonTypeBadge>
+          ))}
+        </div>
+      </div>
+      <button onClick={(e) => onButtonClick(e, pokemon.id)}>
+        {isSelected ? "제거하기" : "추가하기"}
+      </button>
+    </CardWrap>
   );
 }
-
-const EmptyWrap = styled.div`
-  flex: 1 1 180px;
-  min-width: 150px;
-  max-width: 280px;
-  height: 180px;
-  background-color: rgb(255, 255, 255);
-  border: 2px dashed rgb(204, 204, 204);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  img {
-    width: 50px;
-  }
-`;
 
 const CardWrap = styled.div`
   height: 260px;

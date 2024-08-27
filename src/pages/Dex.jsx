@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import Dashboard from "../components/Dashboard";
 import PokemonList from "../components/PokemonList";
-import PokemonProviderComponent from "../components/PokemonProviderComponent";
+import PokemonProvider from "../contexts/PokemonProvider";
 
 function Dex() {
   return (
-    <PokemonProviderComponent>
+    <PokemonProvider>
       <DexContainer>
         <StyledDashboard />
         <PokemonList />
       </DexContainer>
-    </PokemonProviderComponent>
+    </PokemonProvider>
   );
 }
 
