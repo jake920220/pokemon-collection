@@ -1,7 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { POKEMON_TYPES } from "../constants";
-import Monsterball from "../assets/monball.png";
 import { PokemonTypeBadge } from "../styles/PokemonTypeBadge";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
@@ -22,40 +21,29 @@ function PokemonCard({ pokemon, isSelected }) {
   };
 
   return (
-    <>
-      {pokemon.id ? (
-        <CardWrap
-          onClick={() => {
-            navigate(`/detail?id=${pokemon.id}`);
-          }}
-        >
-          <div className="content">
-            <img src={pokemon.img_url} alt={pokemon.korean_name} />
-            <h3>{pokemon.korean_name}</h3>
-            <span className="pokemon-no">
-              No. {String(pokemon.id).padStart(3, 0)}
-            </span>
-            <div className="type-wrap">
-              {pokemon.types.map((type) => (
-                <PokemonTypeBadge
-                  key={type}
-                  className={`${POKEMON_TYPES[type]}`}
-                >
-                  {type}
-                </PokemonTypeBadge>
-              ))}
-            </div>
-          </div>
-          <button onClick={(e) => onButtonClick(e, pokemon)}>
-            {isSelected ? "제거하기" : "추가하기"}
-          </button>
-        </CardWrap>
-      ) : (
-        <EmptyWrap>
-          <img src={Monsterball} alt="monster ball image" />
-        </EmptyWrap>
-      )}
-    </>
+    <CardWrap
+      onClick={() => {
+        navigate(`/detail?id=${pokemon.id}`);
+      }}
+    >
+      <div className="content">
+        <img src={pokemon.img_url} alt={pokemon.korean_name} />
+        <h3>{pokemon.korean_name}</h3>
+        <span className="pokemon-no">
+          No. {String(pokemon.id).padStart(3, 0)}
+        </span>
+        <div className="type-wrap">
+          {pokemon.types.map((type) => (
+            <PokemonTypeBadge key={type} className={`${POKEMON_TYPES[type]}`}>
+              {type}
+            </PokemonTypeBadge>
+          ))}
+        </div>
+      </div>
+      <button onClick={(e) => onButtonClick(e, pokemon)}>
+        {isSelected ? "제거하기" : "추가하기"}
+      </button>
+    </CardWrap>
   );
 }
 
